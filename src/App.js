@@ -3,13 +3,25 @@ import './App.css';
 import { useState } from 'react';
 
 function App() {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    setCount(count + 1);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          <ShoppingList />
+          These counters update separately <br></br>
           <MyButton />
+          <MyButton />
+        </p>
+        <p>
+          These counters update together <br></br>
+          <MyConnectedButton count={count} onClick={handleClick}/>
+          <MyConnectedButton count={count} onClick={handleClick}/>
         </p>
         <a
           className="App-link"
@@ -25,13 +37,23 @@ function App() {
 }
 
 function MyButton() {
+  const [count, setCount] = useState(0);
+
   function handleClick() {
-    alert("I've been clicked!")
+    setCount(count + 1);
   }
 
   return (
     <button onClick={handleClick}>
-      Click me
+      Clicked {count} times
+    </button>
+  );
+}
+
+function MyConnectedButton({count, onClick}) {
+  return (
+    <button onClick={onClick}>
+      Click {count} times
     </button>
   )
 }
